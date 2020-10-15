@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 using BooksStat.UI.Mobile.Models;
+using Xamarin.Forms;
 
 namespace BooksStat.UI.Mobile.Views
 {

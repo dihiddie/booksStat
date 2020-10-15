@@ -1,7 +1,7 @@
-﻿using BooksStat.BAL.Core.Models;
-using BooksStat.DAP.SqLite.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BooksStat.BAL.Core.Models;
+using BooksStat.DAP.SqLite.Models;
 
 namespace BooksStat.BAL.Core.Interfaces
 {
@@ -15,6 +15,6 @@ namespace BooksStat.BAL.Core.Interfaces
 
         Task<IEnumerable<Book>> SearchAsync(string searchText, OrderBy order);
 
-        Task<IEnumerable<Book>> GetByStatus(Enums.Status status, OrderBy order);
+        Task<IEnumerable<Book>> GetByStatusAsync(Enums.Status status, OrderBy order);
     }
 }

@@ -6,7 +6,7 @@ namespace BooksStat.DAP.SqLite.Models
     [Table("Book")]
     public class Book
     {
-        [PrimaryKey, AutoIncrement, Column("Id")]
+        [PrimaryKey][AutoIncrement][Column("Id")]
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -18,6 +18,5 @@ namespace BooksStat.DAP.SqLite.Models
         public DateTime CreateDateTime { get; set; }
 
         public DateTime UpdateDateTime { get; set; }
-
     }
 }

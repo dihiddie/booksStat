@@ -1,5 +1,4 @@
-﻿using BooksStat.BAL.Core.Interfaces;
-using BooksStat.BAL.SqLite;
+﻿using BooksStat.UI.Mobile.Services;
 using BooksStat.UI.Mobile.Views;
 using Xamarin.Forms;
 
@@ -11,12 +10,7 @@ namespace BooksStat.UI.Mobile
         {
             InitializeComponent();
 
-            DependencyService.Register<IBookRepository, BookRepository>();
-
-            //if (UseMockDataStore)
-            //    DependencyService.Register<MockDataStore>();
-            //else
-            //    DependencyService.Register<AzureDataStore>();
+            DependencyService.Register<MockDataStore>();
             MainPage = new MainPage();
         }
 

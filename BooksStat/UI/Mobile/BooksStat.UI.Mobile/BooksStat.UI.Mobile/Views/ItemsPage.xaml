@@ -12,17 +12,10 @@
         <ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
 
-    <StackLayout>
-        <ListView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
-                VerticalOptions="FillAndExpand"
-                HasUnevenRows="true"
-                RefreshCommand="{Binding LoadItemsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement"
-                ItemSelected="OnItemSelected">
-            <d:ListView.ItemsSource>
+    <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
+        <CollectionView x:Name="ItemsCollectionView"
+                ItemsSource="{Binding Items}">
+            <d:CollectionView.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
                     <x:String>First Item</x:String>
                     <x:String>Second Item</x:String>
@@ -31,26 +24,26 @@
                     <x:String>Fifth Item</x:String>
                     <x:String>Sixth Item</x:String>
                 </x:Array>
-            </d:ListView.ItemsSource>
-            <ListView.ItemTemplate>
+            </d:CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Text}" 
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Text}" 
                                 d:Text="{Binding .}"
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" />
-                            <Label Text="{Binding Description}" 
+                        <Label Text="{Binding Description}" 
                                 d:Text="Item descripton"
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="13" />
-                        </StackLayout>
-                    </ViewCell>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnItemSelected"></TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
-    
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView> 
 </ContentPage>

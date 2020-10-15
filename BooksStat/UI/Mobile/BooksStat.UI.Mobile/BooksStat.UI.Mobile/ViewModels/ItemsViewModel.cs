@@ -2,38 +2,37 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
-using Xamarin.Forms;
-
 using BooksStat.UI.Mobile.Models;
 using BooksStat.UI.Mobile.Views;
+using Xamarin.Forms;
 
 namespace BooksStat.UI.Mobile.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
-
         public ItemsViewModel()
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-            {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
-            });
+            MessagingCenter.Subscribe<NewItemPage, Item>(
+                this,
+                "AddItem",
+                async (obj, item) =>
+                    {
+                        var newItem = item as Item;
+                        Items.Add(newItem);
+                        await DataStore.AddItemAsync(newItem);
+                    });
         }
 
-        async Task ExecuteLoadItemsCommand()
-        {
-            if (IsBusy)
-                return;
+        public ObservableCollection<Item> Items { get; set; }
 
+        public Command LoadItemsCommand { get; set; }
+
+        private async Task ExecuteLoadItemsCommand()
+        {
             IsBusy = true;
 
             try

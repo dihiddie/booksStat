@@ -1,12 +1,12 @@
-﻿using SQLite;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using SQLite;
 
 namespace BooksStat.DAP.SqLite.Models
 {
     [SQLite.Table("BookStatusLink")]
     public class BookStatusLink
     {
-        [PrimaryKey, AutoIncrement, SQLite.Column("Id")]
+        [PrimaryKey][AutoIncrement][SQLite.Column("Id")]
         public int Id { get; set; }
 
         [ForeignKey(nameof(Book))]

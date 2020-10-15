@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using SQLite;
 
 namespace BooksStat.DAP.SqLite.Models
@@ -9,7 +6,7 @@ namespace BooksStat.DAP.SqLite.Models
     [SQLite.Table("BookRatingLink")]
     public class BookRatingLink
     {
-        [PrimaryKey, AutoIncrement, SQLite.Column("Id")]
+        [PrimaryKey][AutoIncrement][SQLite.Column("Id")]
         public int Id { get; set; }
 
         [ForeignKey(nameof(Book))]

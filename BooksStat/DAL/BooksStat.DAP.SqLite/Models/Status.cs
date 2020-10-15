@@ -6,7 +6,7 @@ namespace BooksStat.DAP.SqLite.Models
 
     public class Status
     {
-        [PrimaryKey, AutoIncrement, Column("Id")]
+        [PrimaryKey][AutoIncrement][Column("Id")]
         public int Id { get; set; }
 
         public string Name { get; set; }

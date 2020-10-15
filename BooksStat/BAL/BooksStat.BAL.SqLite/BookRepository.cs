@@ -14,46 +14,30 @@ namespace BooksStat.BAL.SqLite
 {
     public class BookRepository : IBookRepository
     {
+        private const string DatabaseName = "books.db";
+
         private readonly ILogger logger;
 
         private readonly SQLiteConnection database;
-
-        private const string databaseName = "books.db";
 
         public BookRepository(ILogger<BookRepository> logger)
         {
             this.logger = logger;
             var databasePath = Path.Combine(
-                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), databaseName);
+                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DatabaseName);
             database = new SQLiteConnection(databasePath);
             CreateTableIfNotExists();
         }
 
+        public Task<bool> AddOrUpdateAsync(Book book) => throw new System.NotImplementedException();
 
-        public Task<bool> AddOrUpdateAsync(Book book)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task SetStatusAsync(Status status) => throw new System.NotImplementedException();
 
-        public Task SetStatusAsync(Status status)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task RateAsync(Rating rating) => throw new System.NotImplementedException();
 
-        public Task RateAsync(Rating rating)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task<IEnumerable<Book>> SearchAsync(string searchText, OrderBy order) => throw new System.NotImplementedException();
 
-        public Task<IEnumerable<Book>> SearchAsync(string searchText, OrderBy order)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<Book>> GetByStatus(Status status, OrderBy order)
-        {
-            throw new System.NotImplementedException();
-        }
+        public Task<IEnumerable<Book>> GetByStatusAsync(Status status, OrderBy order) => throw new System.NotImplementedException();
 
         private void CreateTableIfNotExists()
         {

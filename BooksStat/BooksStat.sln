@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStat.UI.Mobile.Android
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStat.UI.Mobile.iOS", "UI\Mobile\BooksStat.UI.Mobile\BooksStat.UI.Mobile.iOS\BooksStat.UI.Mobile.iOS.csproj", "{316C4651-EA6A-44F5-AE60-8B96F4D18288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStat.UI.Mobile", "UI\Mobile\BooksStat.UI.Mobile\BooksStat.UI.Mobile\BooksStat.UI.Mobile.csproj", "{4E20D399-1382-442D-AB2D-49D341BE2597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BooksStat.UI.Mobile", "UI\Mobile\BooksStat.UI.Mobile\BooksStat.UI.Mobile\BooksStat.UI.Mobile.csproj", "{4E20D399-1382-442D-AB2D-49D341BE2597}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

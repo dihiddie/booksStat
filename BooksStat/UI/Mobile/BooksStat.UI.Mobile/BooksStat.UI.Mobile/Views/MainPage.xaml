@@ -16,48 +16,101 @@
                 <x:String>Дмитрий Глуховский - &quot;Трилогия Метро&quot;</x:String>
                 <x:String>Джереми Бейтс - &quot;Катакомбы Парижа&quot;</x:String>
                 <x:String>Джереми Бейтс - &quot;Лес самоубийц&quot;</x:String>
+                <x:String>Джереми Бейтс - &quot;Остров кукол&quot;</x:String>
             </x:Array>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid VerticalOptions="FillAndExpand">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <ScrollView>
+        <Grid VerticalOptions="FillAndExpand">
+            <Grid.Background>
+                <!--<LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.1" Color="#e3ffe7" />
+                    <GradientStop Offset="1.0" Color="#d9e7ff" />
+                </LinearGradientBrush>-->
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Offset="0.1" Color="#d9a7c7" />
+                    <GradientStop Offset="1.0" Color="#fffcdc" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <Label
-            Grid.Row="0"
-            Margin="5"
-            FontSize="18"
-            HorizontalTextAlignment="Center"
-            Text="Последние обновления" />
-        <BoxView
-            Grid.Row="1"
-            HeightRequest="1"
-            Color="#5b5d68" />
-        <ListView
-            x:Name="phonesListView"
-            Grid.Row="2"
-            HasUnevenRows="True"
-            ItemsSource="{StaticResource Key=phones}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ViewCell.View>
-                            <Frame Margin="7">
-                                <StackLayout>
-                                    <Label FontSize="18" Text="{Binding}" />
-                                    <Label Text="Прочитано" TextColor="DarkRed" />
-                                    <Label Text="10-12-2020" TextColor="Black" />
-                                </StackLayout>
-                            </Frame>
-                        </ViewCell.View>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+            <Label
+                Grid.Row="0"
+                Margin="5"
+                FontSize="Large"
+                HorizontalTextAlignment="Center"
+                Text="Последние обновления"
+                TextColor="DarkRed" />
+            <ListView
+                Grid.Row="1"
+                HasUnevenRows="True"
+                ItemsSource="{StaticResource Key=phones}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Frame
+                                    Margin="15,3,15,7"
+                                    CornerRadius="10"
+                                    HasShadow="True"
+                                    VerticalOptions="Start">
+                                    <StackLayout>
+                                        <Label
+                                            FontSize="18"
+                                            Text="{Binding}"
+                                            TextColor="#7D7D7D" />
+                                        <Label Text="Прочитано" TextColor="DarkRed" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="15 июня 2020 г."
+                                            TextColor="#7D7D7D" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image
+                                                HeightRequest="15"
+                                                Source="star.png"
+                                                WidthRequest="15" />
+                                            <Label Grid.Column="1" Text="4.5" />
+                                            <Image
+                                                Grid.Column="2"
+                                                HeightRequest="15"
+                                                HorizontalOptions="End"
+                                                Source="heart.png"
+                                                WidthRequest="15" />
+                                        </Grid>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button
+                Grid.Row="1"
+                Margin="0,0,13,50"
+                BackgroundColor="#d9a7c7"
+                CornerRadius="40"
+                FontSize="30"
+                HeightRequest="80"
+                HorizontalOptions="End"
+                Opacity="0.5"
+                Text="+"
+                TextColor="DarkRed"
+                VerticalOptions="End"
+                WidthRequest="80" />
+        </Grid>
+
+    </ScrollView>
 
 </ContentPage>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using BooksStat.BAL.Core.Interfaces;
 using BooksStat.BAL.Core.Models;
 using BooksStat.DAP.SqLite.Models;
@@ -29,15 +28,30 @@ namespace BooksStat.BAL.SqLite
             CreateTableIfNotExists();
         }
 
-        public Task<bool> AddOrUpdateAsync(Book book) => throw new System.NotImplementedException();
+        public bool AddOrUpdate(Book book)
+        {
+            try
+            {
+                if (book.Id != 0) database.Update(book);
+                else database.Insert(book);
 
-        public Task SetStatusAsync(Status status) => throw new System.NotImplementedException();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
-        public Task RateAsync(Rating rating) => throw new System.NotImplementedException();
+        public void SetStatus(Book book, Status status) => throw new System.NotImplementedException();
 
-        public Task<IEnumerable<Book>> SearchAsync(string searchText, OrderBy order) => throw new System.NotImplementedException();
+        public void SetRate(Book book, Rating rating) => throw new System.NotImplementedException();
 
-        public Task<IEnumerable<Book>> GetByStatusAsync(Status status, OrderBy order) => throw new System.NotImplementedException();
+        public IEnumerable<Book> GetLastUpdates() => database.Table<Book>().ToList();
+
+        public IEnumerable<Book> Search(string searchText, OrderBy order) => throw new System.NotImplementedException();
+
+        public IEnumerable<Book> GetByStatus(Status status, OrderBy order) => throw new System.NotImplementedException();
 
         private void CreateTableIfNotExists()
         {

@@ -4,14 +4,18 @@ using Xamarin.Forms;
 
 namespace BooksStat.UI.Mobile
 {
+    using BooksStat.BAL.SqLite;
+
     public partial class App : Application
     {
         public App()
         {
             InitializeComponent();
+            Device.SetFlags(new string[] { "Brush_Experimental" });
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
+            DependencyService.Register<BookRepository>();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

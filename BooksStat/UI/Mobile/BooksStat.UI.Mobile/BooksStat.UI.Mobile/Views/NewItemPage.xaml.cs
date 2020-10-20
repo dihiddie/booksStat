@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using BooksStat.UI.Mobile.Models;
 using Xamarin.Forms;
 
 namespace BooksStat.UI.Mobile.Views
@@ -10,30 +9,22 @@ namespace BooksStat.UI.Mobile.Views
     [DesignTimeVisible(false)]
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
-
         public NewItemPage()
         {
             InitializeComponent();
-
-            Item = new Item
-            {
-                Text = "Item name",
-                Description = "This is an item description."
-            };
 
             BindingContext = this;
         }
 
         async void Save_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "AddItem", Item);
-            await Navigation.PopModalAsync();
+            //MessagingCenter.Send(this, "AddItem", Item);
+            await Navigation.PopModalAsync().ConfigureAwait(false);
         }
 
         async void Cancel_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
+            await Navigation.PopModalAsync().ConfigureAwait(false);
         }
     }
 }

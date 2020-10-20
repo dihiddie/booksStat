@@ -5,36 +5,46 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="New Item"
+    Title="Добавить книгу"
     mc:Ignorable="d">
 
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                Source="book_icon.png"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="40" />
+            <Label
+                FontSize="18"
+                HorizontalOptions="StartAndExpand"
+                Text="Добавить книгу"
+                VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="Cancel_Clicked" Text="Cancel" />
-        <ToolbarItem Clicked="Save_Clicked" Text="Save" />
+        <ToolbarItem Clicked="Cancel_Clicked" Text="Отмена" />
+        <ToolbarItem Clicked="Save_Clicked" Text="Сохранить" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <StackLayout Padding="15" Spacing="20">
             <StackLayout.Background>
                 <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="0.1" Color="#d9a7c7" />
-                    <GradientStop Offset="1.0" Color="#fffcdc" />
+                    <GradientStop Offset="0.1" Color="{StaticResource Key=PeachColor}" />
+                    <GradientStop Offset="1.0" Color="{StaticResource Key=BeigeColor}" />
                 </LinearGradientBrush>
             </StackLayout.Background>
-            <Label
-                Margin="5"
-                FontSize="Large"
-                HorizontalTextAlignment="Center"
-                Text="Добавить произведение"
-                TextColor="DarkRed" />
             <Entry
-                d:Text="Автор"
                 FontSize="Medium"
+                Placeholder="Автор"
                 Text="{Binding Item.Text}" />
             <Editor
                 Margin="0"
-                d:Text="Название книги"
                 FontSize="Medium"
+                Placeholder="Название книги"
                 Text="{Binding Item.Description}" />
             <Picker Title="Статус" FontSize="Medium">
                 <Picker.ItemsSource>
@@ -45,10 +55,17 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Entry
-                d:Text="Рейтинг"
-                FontSize="Medium"
-                Keyboard="Numeric" />
+            <Picker Title="Рейтинг" FontSize="Medium">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>1</x:String>
+                        <x:String>2</x:String>
+                        <x:String>3</x:String>
+                        <x:String>4</x:String>
+                        <x:String>5</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
         </StackLayout>
     </ContentPage.Content>
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using BooksStat.BAL.Core.Models;
 using BooksStat.DAP.SqLite.Models;
 
@@ -7,14 +6,16 @@ namespace BooksStat.BAL.Core.Interfaces
 {
     public interface IBookRepository
     {
-        Task<bool> AddOrUpdateAsync(Book book);
+        bool AddOrUpdate(Book book);
 
-        Task SetStatusAsync(Enums.Status status);
+        void SetStatus(Book book, Enums.Status status);
 
-        Task RateAsync(Enums.Rating rating);
+        void SetRate(Book book, Enums.Rating rating);
 
-        Task<IEnumerable<Book>> SearchAsync(string searchText, OrderBy order);
+        IEnumerable<Book> GetLastUpdates();
 
-        Task<IEnumerable<Book>> GetByStatusAsync(Enums.Status status, OrderBy order);
+        IEnumerable<Book> Search(string searchText, OrderBy order);
+
+        IEnumerable<Book> GetByStatus(Enums.Status status, OrderBy order);
     }
 }

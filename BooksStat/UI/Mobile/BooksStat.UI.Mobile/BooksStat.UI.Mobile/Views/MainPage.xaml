@@ -5,8 +5,33 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="clr-namespace:BooksStat.UI.Mobile.Views"
+    Title="Книжный червяк"
     mc:Ignorable="d">
+
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                Source="book_icon.png"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="40" />
+            <Label
+                FontSize="22"
+                HorizontalOptions="StartAndExpand"
+                Text="Книжный червяк"
+                VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem
+            Icon="loupe.png"
+            Order="Primary"
+            Priority="0" />
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -21,85 +46,77 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView>
-        <Grid VerticalOptions="FillAndExpand">
-            <Grid.Background>
-                <!--<LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="0.1" Color="#e3ffe7" />
-                    <GradientStop Offset="1.0" Color="#d9e7ff" />
-                </LinearGradientBrush>-->
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="0.1" Color="#d9a7c7" />
-                    <GradientStop Offset="1.0" Color="#fffcdc" />
-                </LinearGradientBrush>
-            </Grid.Background>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
 
-            <Label
-                Grid.Row="0"
-                Margin="5"
-                FontSize="Large"
-                HorizontalTextAlignment="Center"
-                Text="Последние обновления"
-                TextColor="DarkRed" />
-            <ListView
-                Grid.Row="1"
-                HasUnevenRows="True"
-                ItemsSource="{StaticResource Key=phones}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Frame
-                                    Margin="15,3,15,7"
-                                    CornerRadius="10"
-                                    HasShadow="True"
-                                    VerticalOptions="Start">
-                                    <StackLayout>
-                                        <Label
-                                            FontSize="18"
-                                            Text="{Binding}"
-                                            TextColor="#7D7D7D" />
-                                        <Label Text="Прочитано" TextColor="DarkRed" />
-                                        <Label
-                                            FontSize="12"
-                                            Text="15 июня 2020 г."
-                                            TextColor="#7D7D7D" />
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Image
-                                                HeightRequest="15"
-                                                Source="star.png"
-                                                WidthRequest="15" />
-                                            <Label Grid.Column="1" Text="4.5" />
-                                            <Image
-                                                Grid.Column="2"
-                                                HeightRequest="15"
-                                                HorizontalOptions="End"
-                                                Source="heart.png"
-                                                WidthRequest="15" />
-                                        </Grid>
-                                    </StackLayout>
-                                </Frame>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <StackLayout
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                Orientation="Vertical"
+                Spacing="0">
+                <StackLayout.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Offset="0.1" Color="{StaticResource Key=PeachColor}" />
+                        <GradientStop Offset="1.0" Color="{StaticResource Key=BeigeColor}" />
+                    </LinearGradientBrush>
+                </StackLayout.Background>
+                <ScrollView>
+                    <ListView
+                        Margin="0,10,0,0"
+                        HasUnevenRows="True"
+                        ItemsSource="{StaticResource Key=phones}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Frame
+                                            Margin="15,3,15,7"
+                                            CornerRadius="10"
+                                            HasShadow="True"
+                                            VerticalOptions="Start">
+                                            <StackLayout>
+                                                <Label
+                                                    FontSize="18"
+                                                    Text="{Binding}"
+                                                    TextColor="#7D7D7D" />
+                                                <Label Text="Прочитано" TextColor="DarkRed" />
+                                                <Label
+                                                    FontSize="12"
+                                                    Text="15 июня 2020 г."
+                                                    TextColor="#7D7D7D" />
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image
+                                                        HeightRequest="15"
+                                                        Source="star.png"
+                                                        WidthRequest="15" />
+                                                    <Label Grid.Column="1" Text="4.5" />
+                                                    <Image
+                                                        Grid.Column="2"
+                                                        HeightRequest="15"
+                                                        HorizontalOptions="End"
+                                                        Source="heart.png"
+                                                        WidthRequest="15" />
+                                                </Grid>
+                                            </StackLayout>
+                                        </Frame>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollView>
+            </StackLayout>
             <Button
-                Grid.Row="1"
-                Margin="0,0,13,50"
+                Margin="0,0,13,0"
+                AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
                 BackgroundColor="#d9a7c7"
+                Clicked="Button_OnClicked"
                 CornerRadius="40"
                 FontSize="30"
                 HeightRequest="80"
@@ -109,8 +126,6 @@
                 TextColor="DarkRed"
                 VerticalOptions="End"
                 WidthRequest="80" />
-        </Grid>
-
-    </ScrollView>
-
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>

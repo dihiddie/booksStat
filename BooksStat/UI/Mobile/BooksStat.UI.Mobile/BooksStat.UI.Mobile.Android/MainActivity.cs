@@ -8,13 +8,15 @@ namespace BooksStat.UI.Mobile.Droid
     [Activity(
         Label = "Книжный червяк",
         Icon = "@drawable/book_icon",
-        Theme = "@style/MainTheme",
+        Theme = "@style/Theme.Splash",
         MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            SetTheme(Resource.Style.MainTheme);
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

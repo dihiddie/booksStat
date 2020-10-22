@@ -9,16 +9,14 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <!--  Global Styles  -->
-            <!--<Color x:Key="NavigationPrimary">#2196F3</Color>-->
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="{DynamicResource Key=PeachColor}" />
+                <Setter Property="BarBackgroundColor" Value="{DynamicResource Key=DarkColor}" />
                 <Setter Property="BarTextColor" Value="Red" />
             </Style>
 
+            <Color x:Key="DarkColor">#143a52</Color>
+            <Color x:Key="BeigeColor">#a4daf3</Color>
             <Color x:Key="PeachColor">#d9a7c7</Color>
-            <Color x:Key="BeigeColor">#fffcdc</Color>
         </ResourceDictionary>
     </Application.Resources>
-
 </Application>

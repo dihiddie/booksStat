@@ -33,8 +33,8 @@
         <StackLayout Padding="15" Spacing="20">
             <StackLayout.Background>
                 <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="0.1" Color="{StaticResource Key=PeachColor}" />
-                    <GradientStop Offset="1.0" Color="{StaticResource Key=BeigeColor}" />
+                    <GradientStop Offset="0.1" Color="{StaticResource Key=BeigeColor}" />
+                    <GradientStop Offset="1.0" Color="{StaticResource Key=PeachColor}" />
                 </LinearGradientBrush>
             </StackLayout.Background>
             <Entry

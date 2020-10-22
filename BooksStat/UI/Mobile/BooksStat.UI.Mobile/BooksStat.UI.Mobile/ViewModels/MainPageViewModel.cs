@@ -8,7 +8,7 @@
     {
         public MainPageViewModel()
         {
-            // var bookRepo = DependencyService.Get<BookRepository>();
+            var bookRepo = DependencyService.Get<BookRepository>();
         }
     }
 }

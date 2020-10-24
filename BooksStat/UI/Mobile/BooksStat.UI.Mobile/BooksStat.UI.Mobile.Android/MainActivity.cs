@@ -7,7 +7,7 @@ namespace BooksStat.UI.Mobile.Droid
 {
     [Activity(
         Label = "Книжный червяк",
-        Icon = "@drawable/book_icon",
+        Icon = "@drawable/bookworm_icon",
         Theme = "@style/Theme.Splash",
         MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]

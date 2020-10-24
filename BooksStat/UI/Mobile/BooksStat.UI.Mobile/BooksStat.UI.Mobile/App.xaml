@@ -14,9 +14,9 @@
                 <Setter Property="BarTextColor" Value="Red" />
             </Style>
 
-            <Color x:Key="DarkColor">#143a52</Color>
+            <Color x:Key="DarkColor">#20716a</Color>
             <Color x:Key="BeigeColor">#a4daf3</Color>
-            <Color x:Key="PeachColor">#d9a7c7</Color>
+            <Color x:Key="PeachColor">#f4a9c7</Color>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

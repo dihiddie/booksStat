@@ -4,7 +4,6 @@ using Xamarin.Forms;
 namespace BooksStat.UI.Mobile.Views
 {
     using System;
-    using BooksStat.UI.Mobile.ViewModels;
 
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
@@ -14,7 +13,12 @@ namespace BooksStat.UI.Mobile.Views
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainPageViewModel();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            // booksListView.ItemsSource = App.BookRepository.GetLastUpdates();
         }
 
         private void Button_OnClicked(object sender, EventArgs e)

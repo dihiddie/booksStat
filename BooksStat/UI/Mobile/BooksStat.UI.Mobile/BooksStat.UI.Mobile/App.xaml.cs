@@ -4,10 +4,16 @@ using Xamarin.Forms;
 
 namespace BooksStat.UI.Mobile
 {
+    using System;
+    using System.IO;
     using BooksStat.BAL.SqLite;
 
     public partial class App : Application
     {
+        private const string DatabaseName = "books.db";
+
+        private static BookRepository bookRepository;
+
         public App()
         {
             InitializeComponent();
@@ -17,6 +23,13 @@ namespace BooksStat.UI.Mobile
             DependencyService.Register<BookRepository>();
             MainPage = new NavigationPage(new MainPage());
         }
+
+        public static BookRepository BookRepository =>
+            bookRepository ?? (bookRepository = new BookRepository(
+                                   Path.Combine(
+                                       Environment.GetFolderPath(
+                                           Environment.SpecialFolder.LocalApplicationData),
+                                       DatabaseName)));
 
         protected override void OnStart()
         {

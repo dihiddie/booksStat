@@ -13,7 +13,7 @@
     <!-- colorPrimary is used for the default action bar background -->
     <item name="colorPrimary">#f7edf3</item>
     <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">#143a52</item>
+    <item name="colorPrimaryDark">#20716a</item>
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
     <item name="colorAccent">#FF4081</item>
@@ -31,10 +31,6 @@
 
   <style name="Theme.Splash" parent="Theme.AppCompat.NoActionBar">
     <item name="windowNoTitle">true</item>
-
-    <item name="colorPrimary">#f7edf3</item>
-    <item name="colorPrimaryDark">#143a52</item>
-
-    <item name="android:windowBackground">@drawable/canvas</item>
+    <item name="android:windowBackground">@drawable/bookworm</item>
   </style>
 </resources>

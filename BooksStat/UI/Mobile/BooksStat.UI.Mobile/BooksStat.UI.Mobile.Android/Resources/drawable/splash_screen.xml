@@ -5,7 +5,7 @@
   </item>
   <item>
     <bitmap
-      android:src="@drawable/canvas"
+      android:src="@drawable/bookworm"
       android:tileMode="disabled"
       android:gravity="center"/>
   </item>

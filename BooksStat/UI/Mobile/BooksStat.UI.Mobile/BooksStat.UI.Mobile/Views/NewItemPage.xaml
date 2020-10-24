@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="NewItemContentPage"
     Title="Добавить книгу"
     mc:Ignorable="d">
 
@@ -20,6 +21,7 @@
                 FontSize="18"
                 HorizontalOptions="StartAndExpand"
                 Text="Добавить книгу"
+                TextColor="#fbf7f0"
                 VerticalOptions="CenterAndExpand" />
         </StackLayout>
     </NavigationPage.TitleView>
@@ -30,42 +32,34 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Padding="15" Spacing="20">
-            <StackLayout.Background>
-                <LinearGradientBrush EndPoint="0,1">
-                    <GradientStop Offset="0.1" Color="{StaticResource Key=BeigeColor}" />
-                    <GradientStop Offset="1.0" Color="{StaticResource Key=PeachColor}" />
-                </LinearGradientBrush>
-            </StackLayout.Background>
+        <StackLayout
+            Padding="15"
+            Background="#fbf7f0"
+            BindingContext="{x:Reference Name=NewItemContentPage}"
+            Spacing="20">
             <Entry
                 FontSize="Medium"
                 Placeholder="Автор"
-                Text="{Binding Item.Text}" />
+                PlaceholderColor="DarkRed"
+                Text="{Binding Book.AuthorName}" />
             <Editor
                 Margin="0"
                 FontSize="Medium"
                 Placeholder="Название книги"
-                Text="{Binding Item.Description}" />
-            <Picker Title="Статус" FontSize="Medium">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Добавлено</x:String>
-                        <x:String>Прочитано</x:String>
-                        <x:String>Недочитано</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
-            <Picker Title="Рейтинг" FontSize="Medium">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>1</x:String>
-                        <x:String>2</x:String>
-                        <x:String>3</x:String>
-                        <x:String>4</x:String>
-                        <x:String>5</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+                PlaceholderColor="DarkRed"
+                Text="{Binding Book.BookName}" />
+            <Picker
+                Title="Статус"
+                FontSize="Medium"
+                ItemsSource="{Binding Book.StatusList}"
+                SelectedItem="{Binding Book.SelectedStatus}"
+                TitleColor="DarkRed" />
+            <Picker
+                Title="Рейтинг"
+                FontSize="Medium"
+                ItemsSource="{Binding Book.RatingList}"
+                SelectedItem="{Binding Book.SelectedRating}"
+                TitleColor="DarkRed" />
         </StackLayout>
     </ContentPage.Content>
 

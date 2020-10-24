@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace BooksStat.UI.Mobile.Views
 {
-    using BooksStat.DAP.SqLite.Models;
+    using BooksStat.BAL.Core.Models;
 
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
@@ -18,21 +18,14 @@ namespace BooksStat.UI.Mobile.Views
             BindingContext = this;
         }
 
-        async void Save_Clicked(object sender, EventArgs e)
+        public Book Book { get; set; }
+
+        private void Save_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync().ConfigureAwait(false);
-            App.BookRepository.AddOrUpdate(
-                new Book
-                {
-                    AuthorName = "111",
-                    AuthorLastName = "123",
-                    Name = "111",
-                    CreateDateTime = DateTime.Now,
-                    UpdateDateTime = DateTime.Now
-                });
+            App.BookRepository.AddOrUpdate(Book);
         }
 
-        async void Cancel_Clicked(object sender, EventArgs e)
+        private async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync().ConfigureAwait(false);
         }

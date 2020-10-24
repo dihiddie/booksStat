@@ -8,6 +8,10 @@ using Status = BooksStat.BAL.Core.Enums.Status;
 
 namespace BooksStat.BAL.SqLite
 {
+    using System;
+
+    using Book = BooksStat.BAL.Core.Models.Book;
+
     public class BookRepository : IBookRepository
     {
         private readonly SQLiteConnection database;
@@ -20,10 +24,18 @@ namespace BooksStat.BAL.SqLite
 
         public bool AddOrUpdate(Book book)
         {
+            var dbBook = new DAP.SqLite.Models.Book
+                             {
+                                 Id = book.Id,
+                                 AuthorName = book.AuthorName,
+                                 Name = book.BookName,
+                                 CreateDateTime = DateTime.Now,
+                                 UpdateDateTime = DateTime.Now
+                             };
             try
             {
-                if (book.Id != 0) database.Update(book);
-                else database.Insert(book);
+                if (dbBook.Id != 0) database.Update(dbBook);
+                else database.Insert(dbBook);
 
                 return true;
             }
@@ -33,9 +45,27 @@ namespace BooksStat.BAL.SqLite
             }
         }
 
-        public void SetStatus(Book book, Status status) => throw new System.NotImplementedException();
+        public void SetStatus(int id, Status status)
+        {
+            var bookStatusLink = GetBookStatusLink(id);
+            if (bookStatusLink == null) database.Insert(new BookStatusLink { BookId = id, StatusId = (int)status });
+            else
+            {
+                bookStatusLink.StatusId = (int)status;
+                database.Insert(bookStatusLink);
+            }
+        }
 
-        public void SetRate(Book book, Rating rating) => throw new System.NotImplementedException();
+        public void SetRate(int id, Rating rating)
+        {
+            var bookRatingLink = GetBookRatingLink(id);
+            if (bookRatingLink == null) database.Insert(new BookStatusLink { BookId = id, StatusId = (int)rating });
+            else
+            {
+                bookRatingLink.RatingId = (int)rating;
+                database.Insert(bookRatingLink);
+            }
+        }
 
         public IEnumerable<Book> GetLastUpdates() => database.Table<Book>().ToList();
 
@@ -47,9 +77,13 @@ namespace BooksStat.BAL.SqLite
         {
             database.CreateTable<Book>();
             database.CreateTable<DAP.SqLite.Models.Status>();
-            //database.CreateTable<BookStatusLink>();
-            //database.CreateTable<DAP.SqLite.Models.Rating>();
-            //database.CreateTable<BookRatingLink>();
+            database.CreateTable<BookStatusLink>();
+            database.CreateTable<DAP.SqLite.Models.Rating>();
+            database.CreateTable<BookRatingLink>();
         }
+
+        private BookStatusLink GetBookStatusLink(int bookId) => database.Table<BookStatusLink>().FirstOrDefault(x => x.BookId == bookId);
+
+        private BookRatingLink GetBookRatingLink(int bookId) => database.Table<BookRatingLink>().FirstOrDefault(x => x.BookId == bookId);
     }
 }

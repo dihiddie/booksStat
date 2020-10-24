@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStat.UI.Mobile.iOS", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BooksStat.UI.Mobile", "UI\Mobile\BooksStat.UI.Mobile\BooksStat.UI.Mobile\BooksStat.UI.Mobile.csproj", "{4E20D399-1382-442D-AB2D-49D341BE2597}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B97ABAF8-523E-4401-8838-38B524009D86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksStat.Utils.Enum", "Utils\BooksStat.Utils.Enum\BooksStat.Utils.Enum.csproj", "{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +113,18 @@ Global
 		{4E20D399-1382-442D-AB2D-49D341BE2597}.Release|iPhone.Build.0 = Release|Any CPU
 		{4E20D399-1382-442D-AB2D-49D341BE2597}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{4E20D399-1382-442D-AB2D-49D341BE2597}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Release|iPhone.Build.0 = Release|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +137,7 @@ Global
 		{BFBAD922-8A8D-4B9A-9F5B-7B10EB277C01} = {485C5E4F-423A-4737-BBBE-F439C9C48A2A}
 		{316C4651-EA6A-44F5-AE60-8B96F4D18288} = {485C5E4F-423A-4737-BBBE-F439C9C48A2A}
 		{4E20D399-1382-442D-AB2D-49D341BE2597} = {485C5E4F-423A-4737-BBBE-F439C9C48A2A}
+		{2CB8BB7A-2FAD-486A-BA7A-291BC61F8CC8} = {B97ABAF8-523E-4401-8838-38B524009D86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD870FC0-42CB-4937-8675-F9B2D9D1F75D}

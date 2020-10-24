@@ -13,8 +13,6 @@ namespace BooksStat.DAP.SqLite.Models
 
         public string AuthorName { get; set; }
 
-        public string AuthorLastName { get; set; }
-
         public DateTime CreateDateTime { get; set; }
 
         public DateTime UpdateDateTime { get; set; }

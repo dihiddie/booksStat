@@ -5,7 +5,7 @@
 
     public interface IBookRepository
     {
-        bool AddOrUpdate(Book book);
+        int AddOrUpdate(Book book);
 
         void SetStatus(int id, Enums.Status status);
 

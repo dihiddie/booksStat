@@ -35,7 +35,7 @@
         <StackLayout
             Padding="15"
             Background="#fbf7f0"
-            BindingContext="{x:Reference Name=NewItemContentPage}"
+            BindingContext="{x:Reference Name=NewItemContentPage.}"
             Spacing="20">
             <Entry
                 FontSize="Medium"

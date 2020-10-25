@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
-using BooksStat.BAL.Core.Interfaces;
-using BooksStat.BAL.Core.Models;
-using BooksStat.DAP.SqLite.Models;
-using SQLite;
-using Rating = BooksStat.BAL.Core.Enums.Rating;
-using Status = BooksStat.BAL.Core.Enums.Status;
-
-namespace BooksStat.BAL.SqLite
+﻿namespace BooksStat.BAL.SqLite
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    using Book = BooksStat.BAL.Core.Models.Book;
+    using BooksStat.BAL.Core.Exceptions;
+    using BooksStat.BAL.Core.Interfaces;
+    using BooksStat.BAL.Core.Models;
+    using BooksStat.DAL.SqLite.Models;
+    using BooksStat.Utils.Enum;
+    using SQLite;
+    using Book = Core.Models.Book;
+    using Rating = Core.Enums.Rating;
+    using Status = Core.Enums.Status;
 
-    public class BookRepository : IBookRepository
+    public sealed class BookRepository : IBookRepository
     {
         private readonly SQLiteConnection database;
 
@@ -22,26 +24,27 @@ namespace BooksStat.BAL.SqLite
             CreateTableIfNotExists();
         }
 
-        public bool AddOrUpdate(Book book)
+        public int AddOrUpdate(Book book)
         {
-            var dbBook = new DAP.SqLite.Models.Book
-                             {
-                                 Id = book.Id,
-                                 AuthorName = book.AuthorName,
-                                 Name = book.BookName,
-                                 CreateDateTime = DateTime.Now,
-                                 UpdateDateTime = DateTime.Now
-                             };
             try
             {
+                var dbBook = new DAL.SqLite.Models.Book
+                                 {
+                                     Id = book.Id,
+                                     AuthorName = book.AuthorName,
+                                     Name = book.BookName,
+                                     CreateDateTime = DateTime.Now,
+                                     UpdateDateTime = DateTime.Now
+                                 };
+
                 if (dbBook.Id != 0) database.Update(dbBook);
                 else database.Insert(dbBook);
 
-                return true;
+                return dbBook.Id;
             }
             catch
             {
-                return false;
+                throw new DatabaseException("Произошла ошибка при сохранении данных. Пожалуйста, попробуйте позже");
             }
         }
 
@@ -52,22 +55,39 @@ namespace BooksStat.BAL.SqLite
             else
             {
                 bookStatusLink.StatusId = (int)status;
-                database.Insert(bookStatusLink);
+                database.Update(bookStatusLink);
             }
         }
 
         public void SetRate(int id, Rating rating)
         {
             var bookRatingLink = GetBookRatingLink(id);
-            if (bookRatingLink == null) database.Insert(new BookStatusLink { BookId = id, StatusId = (int)rating });
+            if (bookRatingLink == null) database.Insert(new BookRatingLink { BookId = id, RatingId = (int)rating });
             else
             {
                 bookRatingLink.RatingId = (int)rating;
-                database.Insert(bookRatingLink);
+                database.Update(bookRatingLink);
             }
         }
 
-        public IEnumerable<Book> GetLastUpdates() => database.Table<Book>().ToList();
+        public IEnumerable<Book> GetLastUpdates()
+        {
+            var booksInDb = database.Table<DAL.SqLite.Models.Book>().OrderBy(x => x.UpdateDateTime).ToList();
+            var books = new List<Book>();
+            foreach (var dbBook in booksInDb)
+            {
+                var book = new Book { Id = dbBook.Id, AuthorName = dbBook.AuthorName, BookName = dbBook.Name };
+                var bookRating = GetBookRatingLink(dbBook.Id);
+                var bookStatus = GetBookStatusLink(dbBook.Id);
+
+                book.SelectedRating = ((Rating)bookRating.RatingId).GetEnumDescription();
+                book.SelectedStatus = ((Status)bookStatus.StatusId).GetEnumDescription();
+
+                books.Add(book);
+            }
+
+            return books;
+        }
 
         public IEnumerable<Book> Search(string searchText, OrderBy order) => throw new System.NotImplementedException();
 
@@ -75,15 +95,32 @@ namespace BooksStat.BAL.SqLite
 
         private void CreateTableIfNotExists()
         {
-            database.CreateTable<Book>();
-            database.CreateTable<DAP.SqLite.Models.Status>();
+            database.CreateTable<DAL.SqLite.Models.Book>();
+            database.CreateTable<DAL.SqLite.Models.Status>();
             database.CreateTable<BookStatusLink>();
-            database.CreateTable<DAP.SqLite.Models.Rating>();
+            database.CreateTable<DAL.SqLite.Models.Rating>();
             database.CreateTable<BookRatingLink>();
+
+            SeedStatusData();
+            SeedRatingData();
         }
 
         private BookStatusLink GetBookStatusLink(int bookId) => database.Table<BookStatusLink>().FirstOrDefault(x => x.BookId == bookId);
 
         private BookRatingLink GetBookRatingLink(int bookId) => database.Table<BookRatingLink>().FirstOrDefault(x => x.BookId == bookId);
+
+        private void SeedStatusData()
+        {
+            if (database.Table<Status>().Any()) return;
+            foreach (var statusName in EnumExtensions.GetEnumAsList<Status>())
+                database.Insert(new DAL.SqLite.Models.Status { Name = statusName });
+        }
+
+        private void SeedRatingData()
+        {
+            if (database.Table<Rating>().Any()) return;
+            foreach (var ratingName in EnumExtensions.GetEnumAsList<Rating>())
+                database.Insert(new DAL.SqLite.Models.Rating() { Name = ratingName });
+        }
     }
 }

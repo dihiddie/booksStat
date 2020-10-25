@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DAL\BooksStat.DAP.SqLite\BooksStat.DAP.SqLite.csproj" />
     <ProjectReference Include="..\..\Utils\BooksStat.Utils.Enum\BooksStat.Utils.Enum.csproj" />
   </ItemGroup>
 

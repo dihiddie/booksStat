@@ -54,8 +54,7 @@
                     <ListView
                         x:Name="booksListView"
                         Margin="0,10,0,0"
-                        HasUnevenRows="True"
-                        ItemsSource="{StaticResource phones}">
+                        HasUnevenRows="True">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -75,11 +74,19 @@
                                                         WidthRequest="15" />
                                                     <Label
                                                         FontSize="18"
-                                                        Text="{Binding}"
+                                                        Text="{Binding AuthorName}"
+                                                        TextColor="#7D7D7D" />
+                                                    <Label
+                                                        FontSize="18"
+                                                        Text="-"
+                                                        TextColor="#7D7D7D" />
+                                                    <Label
+                                                        FontSize="18"
+                                                        Text="{Binding BookName}"
                                                         TextColor="#7D7D7D" />
                                                 </StackLayout>
 
-                                                <Label Text="Прочитано" TextColor="DarkRed" />
+                                                <Label Text="{Binding SelectedStatus}" TextColor="DarkRed" />
                                                 <Label
                                                     FontSize="12"
                                                     Text="15 июня 2020 г."
@@ -94,7 +101,7 @@
                                                         HeightRequest="15"
                                                         Source="star.png"
                                                         WidthRequest="15" />
-                                                    <Label Grid.Column="1" Text="4.5" />
+                                                    <Label Grid.Column="1" Text="{Binding SelectedRating}" />
 
                                                 </Grid>
                                             </StackLayout>

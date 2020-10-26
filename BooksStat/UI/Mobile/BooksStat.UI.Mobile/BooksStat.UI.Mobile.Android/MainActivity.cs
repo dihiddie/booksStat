@@ -10,6 +10,7 @@ namespace BooksStat.UI.Mobile.Droid
         Icon = "@drawable/bookworm_icon",
         Theme = "@style/Theme.Splash",
         MainLauncher = true,
+        NoHistory = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {

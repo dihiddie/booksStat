@@ -35,30 +35,27 @@
         <StackLayout
             Padding="15"
             Background="#fbf7f0"
-            BindingContext="{x:Reference Name=NewItemContentPage.}"
             Spacing="20">
             <Entry
+                x:Name="authorNameEntry"
                 FontSize="Medium"
                 Placeholder="Автор"
-                PlaceholderColor="DarkRed"
-                Text="{Binding Book.AuthorName}" />
+                PlaceholderColor="DarkRed" />
             <Editor
+                x:Name="bookNameEntry"
                 Margin="0"
                 FontSize="Medium"
                 Placeholder="Название книги"
-                PlaceholderColor="DarkRed"
-                Text="{Binding Book.BookName}" />
+                PlaceholderColor="DarkRed" />
             <Picker
+                x:Name="statusPicker"
                 Title="Статус"
                 FontSize="Medium"
-                ItemsSource="{Binding Book.StatusList}"
-                SelectedItem="{Binding Book.SelectedStatus}"
                 TitleColor="DarkRed" />
             <Picker
+                x:Name="ratingPicker"
                 Title="Рейтинг"
                 FontSize="Medium"
-                ItemsSource="{Binding Book.RatingList}"
-                SelectedItem="{Binding Book.SelectedRating}"
                 TitleColor="DarkRed" />
         </StackLayout>
     </ContentPage.Content>

@@ -22,6 +22,7 @@
         {
             database = new SQLiteConnection(databasePath);
             CreateTableIfNotExists();
+            CleanDatabase();
         }
 
         public int AddOrUpdate(Book book)
@@ -72,16 +73,16 @@
 
         public IEnumerable<Book> GetLastUpdates()
         {
-            var booksInDb = database.Table<DAL.SqLite.Models.Book>().OrderBy(x => x.UpdateDateTime).ToList();
+            var booksInDb = database.Table<DAL.SqLite.Models.Book>().OrderBy(x => x.UpdateDateTime).Take(15).ToList();
             var books = new List<Book>();
             foreach (var dbBook in booksInDb)
             {
-                var book = new Book { Id = dbBook.Id, AuthorName = dbBook.AuthorName, BookName = dbBook.Name };
+                 var book = new Book { Id = dbBook.Id, AuthorName = dbBook.AuthorName, BookName = dbBook.Name };
                 var bookRating = GetBookRatingLink(dbBook.Id);
                 var bookStatus = GetBookStatusLink(dbBook.Id);
 
-                book.SelectedRating = ((Rating)bookRating.RatingId).GetEnumDescription();
-                book.SelectedStatus = ((Status)bookStatus.StatusId).GetEnumDescription();
+                if (bookRating != null) book.SelectedRating = ((Rating)bookRating.RatingId).GetEnumDescription();
+                if (bookStatus != null) book.SelectedStatus = ((Status)bookStatus.StatusId).GetEnumDescription();
 
                 books.Add(book);
             }
@@ -121,6 +122,12 @@
             if (database.Table<Rating>().Any()) return;
             foreach (var ratingName in EnumExtensions.GetEnumAsList<Rating>())
                 database.Insert(new DAL.SqLite.Models.Rating() { Name = ratingName });
+        }
+
+        private void CleanDatabase()
+        {
+            var books = database.Table<DAL.SqLite.Models.Book>().ToList();
+            foreach (var book in books) database.Delete(book);
         }
     }
 }

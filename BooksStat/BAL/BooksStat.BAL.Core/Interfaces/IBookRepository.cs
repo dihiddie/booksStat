@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using BooksStat.BAL.Core.Models;
-using BooksStat.DAP.SqLite.Models;
-
-namespace BooksStat.BAL.Core.Interfaces
+﻿namespace BooksStat.BAL.Core.Interfaces
 {
+    using System.Collections.Generic;
+    using BooksStat.BAL.Core.Models;
+
     public interface IBookRepository
     {
-        bool AddOrUpdate(Book book);
+        int AddOrUpdate(Book book);
 
-        void SetStatus(Book book, Enums.Status status);
+        void SetStatus(int id, Enums.Status status);
 
-        void SetRate(Book book, Enums.Rating rating);
+        void SetRate(int id, Enums.Rating rating);
 
         IEnumerable<Book> GetLastUpdates();
 

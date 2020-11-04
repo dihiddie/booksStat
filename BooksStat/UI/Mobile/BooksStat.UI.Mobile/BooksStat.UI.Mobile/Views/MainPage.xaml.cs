@@ -18,7 +18,7 @@ namespace BooksStat.UI.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            // booksListView.ItemsSource = App.BookRepository.GetLastUpdates();
+            booksListView.ItemsSource = App.BookRepository.GetLastUpdates();
         }
 
         private void Button_OnClicked(object sender, EventArgs e)

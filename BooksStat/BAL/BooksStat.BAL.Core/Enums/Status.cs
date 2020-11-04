@@ -5,14 +5,12 @@
     public enum Status
     {
         [Description("Добавлено")]
-        Added,
+        Added = 1,
         [Description("Недочитано")]
-        NotFinished,
+        NotFinished = 2,
         [Description("Прочитано")]
-        Readed,
+        Readed = 3,
         [Description("Хочу прочитать")]
-        WantToRead,
-        [Description("Любимое")]
-        Favorite
+        WantToRead = 4
     }
 }

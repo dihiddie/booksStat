@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{DynamicResource Key=DarkColor}" />
-                <Setter Property="BarTextColor" Value="Red" />
+                <Setter Property="BarTextColor" Value="DarkRed" />
             </Style>
 
             <Color x:Key="DarkColor">#20716a</Color>

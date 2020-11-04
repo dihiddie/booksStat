@@ -6,11 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
-    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DAL\BooksStat.DAP.SqLite\BooksStat.DAP.SqLite.csproj" />
+    <ProjectReference Include="..\..\DAL\BooksStat.DAL.SqLite\BooksStat.DAL.SqLite.csproj" />
     <ProjectReference Include="..\BooksStat.BAL.Core\BooksStat.BAL.Core.csproj" />
   </ItemGroup>
 

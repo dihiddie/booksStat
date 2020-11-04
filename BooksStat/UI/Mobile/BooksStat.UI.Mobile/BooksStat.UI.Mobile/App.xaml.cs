@@ -10,6 +10,8 @@ namespace BooksStat.UI.Mobile
 
     public partial class App : Application
     {
+        private const string ApplicationFolder = "BooksStat";
+
         private const string DatabaseName = "books.db";
 
         private static BookRepository bookRepository;

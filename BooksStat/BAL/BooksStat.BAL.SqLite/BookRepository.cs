@@ -21,8 +21,10 @@
         public BookRepository(string databasePath)
         {
             database = new SQLiteConnection(databasePath);
+
+            // CleanDatabase();
+            // DropTables();
             CreateTableIfNotExists();
-            CleanDatabase();
         }
 
         public int AddOrUpdate(Book book)
@@ -35,7 +37,8 @@
                                      AuthorName = book.AuthorName,
                                      Name = book.BookName,
                                      CreateDateTime = DateTime.Now,
-                                     UpdateDateTime = DateTime.Now
+                                     UpdateDateTime = DateTime.Now,
+                                     IsFavorite = book.IsFavorite
                                  };
 
                 if (dbBook.Id != 0) database.Update(dbBook);
@@ -77,7 +80,13 @@
             var books = new List<Book>();
             foreach (var dbBook in booksInDb)
             {
-                 var book = new Book { Id = dbBook.Id, AuthorName = dbBook.AuthorName, BookName = dbBook.Name };
+                var book = new Book
+                               {
+                                   Id = dbBook.Id,
+                                   AuthorName = dbBook.AuthorName,
+                                   BookName = dbBook.Name,
+                                   IsFavorite = dbBook.IsFavorite
+                               };
                 var bookRating = GetBookRatingLink(dbBook.Id);
                 var bookStatus = GetBookStatusLink(dbBook.Id);
 
@@ -128,6 +137,16 @@
         {
             var books = database.Table<DAL.SqLite.Models.Book>().ToList();
             foreach (var book in books) database.Delete(book);
+        }
+
+        private void DropTables()
+        {
+            database.DropTable<BookStatusLink>();
+            database.DropTable<BookRatingLink>();
+
+            database.DropTable<DAL.SqLite.Models.Status>();
+            database.DropTable<DAL.SqLite.Models.Rating>();
+            database.DropTable<DAL.SqLite.Models.Book>();
         }
     }
 }

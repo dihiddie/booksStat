@@ -69,20 +69,13 @@
                                                     <Image
                                                         HeightRequest="15"
                                                         HorizontalOptions="End"
+                                                        IsVisible="{Binding IsFavorite}"
                                                         Source="heart.png"
                                                         VerticalOptions="Center"
                                                         WidthRequest="15" />
                                                     <Label
                                                         FontSize="18"
-                                                        Text="{Binding AuthorName}"
-                                                        TextColor="#7D7D7D" />
-                                                    <Label
-                                                        FontSize="18"
-                                                        Text="-"
-                                                        TextColor="#7D7D7D" />
-                                                    <Label
-                                                        FontSize="18"
-                                                        Text="{Binding BookName}"
+                                                        Text="{Binding AuthorBookName}"
                                                         TextColor="#7D7D7D" />
                                                 </StackLayout>
 

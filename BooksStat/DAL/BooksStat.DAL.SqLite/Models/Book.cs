@@ -20,5 +20,9 @@ namespace BooksStat.DAL.SqLite.Models
         public DateTime CreateDateTime { get; set; }
 
         public DateTime UpdateDateTime { get; set; }
+
+        public bool IsFavorite { get; set; }
+
+        public string WhoAdvisedToRead { get; set; }
     }
 }

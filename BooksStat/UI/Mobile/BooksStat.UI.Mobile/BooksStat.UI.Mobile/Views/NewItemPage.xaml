@@ -57,6 +57,23 @@
                 Title="Рейтинг"
                 FontSize="Medium"
                 TitleColor="DarkRed" />
+            <Editor
+                x:Name="adviserNameEntry"
+                Margin="0"
+                FontSize="Medium"
+                Placeholder="Откуда узнали про книгу?"
+                PlaceholderColor="DarkRed" />
+            <StackLayout Orientation="Horizontal">
+                <Label
+                    FontSize="Medium"
+                    Text="Любимая книга?"
+                    TextColor="DarkRed"
+                    VerticalOptions="Center" />
+                <CheckBox
+                    x:Name="favoriteCheckBox"
+                    VerticalOptions="Center"
+                    Color="DarkRed" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 

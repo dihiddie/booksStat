@@ -11,8 +11,6 @@
         [Description("Прочитано")]
         Readed = 3,
         [Description("Хочу прочитать")]
-        WantToRead = 4,
-        [Description("Любимое")]
-        Favorite = 5
+        WantToRead = 4
     }
 }

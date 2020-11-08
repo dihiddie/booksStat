@@ -12,34 +12,23 @@
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <SearchBar
+                x:Name="searchBar"
                 Margin="-23,0,0,5"
                 FontSize="16"
                 HorizontalOptions="FillAndExpand"
                 Opacity="0.8"
                 Placeholder="Введите автора или название книги"
                 PlaceholderColor="White"
+                SearchButtonPressed="SearchBar_OnSearchButtonPressed"
+                TextChanged="SearchBar_OnTextChanged"
                 TextColor="White"
                 VerticalOptions="CenterAndExpand" />
         </StackLayout>
     </NavigationPage.TitleView>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Icon="bookworm_icon" />
+        <ToolbarItem Clicked="MenuItem_OnClicked" Icon="filter" />
     </ContentPage.ToolbarItems>
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <x:Array x:Key="phones" Type="{x:Type x:String}">
-                <x:String>Карл Саган - &quot;Наука в поисках Бога&quot;</x:String>
-                <x:String>Михаил Булгаков - &quot;Мастер и Маргарита&quot;</x:String>
-                <x:String>Дмитрий Глуховский - &quot;Трилогия Метро&quot;</x:String>
-                <x:String>Джереми Бейтс - &quot;Катакомбы Парижа&quot;</x:String>
-                <x:String>Джереми Бейтс - &quot;Лес самоубийц&quot;</x:String>
-                <x:String>Джереми Бейтс - &quot;Остров кукол&quot;</x:String>
-            </x:Array>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
 
     <ContentPage.Content>
         <AbsoluteLayout>

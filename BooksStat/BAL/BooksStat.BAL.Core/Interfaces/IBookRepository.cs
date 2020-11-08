@@ -5,16 +5,20 @@
 
     public interface IBookRepository
     {
+        void SetTestData();
+
         int AddOrUpdate(Book book);
 
         void SetStatus(int id, Enums.Status status);
 
         void SetRate(int id, Enums.Rating rating);
 
-        IEnumerable<Book> GetLastUpdates();
+        IEnumerable<Book> GetLastUpdates(int take);
 
-        IEnumerable<Book> Search(string searchText, OrderBy order);
+        IEnumerable<Book> Search(string searchText);
 
-        IEnumerable<Book> GetByStatus(Enums.Status status, OrderBy order);
+        IEnumerable<Book> Filter(Enums.Status? status, Enums.Rating? rating, int? month, int? year, bool? isFavorite);
+
+        IEnumerable<int> GetEnteredYears();
     }
 }

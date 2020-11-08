@@ -64,15 +64,15 @@
                 Placeholder="Откуда узнали про книгу?"
                 PlaceholderColor="DarkRed" />
             <StackLayout Orientation="Horizontal">
+                <CheckBox
+                    x:Name="favoriteCheckBox"
+                    VerticalOptions="Center"
+                    Color="DarkRed" />
                 <Label
                     FontSize="Medium"
                     Text="Любимая книга?"
                     TextColor="DarkRed"
                     VerticalOptions="Center" />
-                <CheckBox
-                    x:Name="favoriteCheckBox"
-                    VerticalOptions="Center"
-                    Color="DarkRed" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

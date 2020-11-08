@@ -6,7 +6,6 @@
 
     using BooksStat.BAL.Core.Exceptions;
     using BooksStat.BAL.Core.Interfaces;
-    using BooksStat.BAL.Core.Models;
     using BooksStat.DAL.SqLite.Models;
     using BooksStat.Utils.Enum;
     using SQLite;
@@ -22,9 +21,35 @@
         {
             database = new SQLiteConnection(databasePath);
 
-            // CleanDatabase();
             // DropTables();
             CreateTableIfNotExists();
+            CleanDatabase();
+            SetTestData();
+        }
+
+        public void SetTestData()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var id = AddOrUpdate(new Book
+                                                  {
+                                                      AuthorName = $"TestAuthor_{i}",
+                                                      BookName = $"TestBookName_{i}",
+                                                      // IsFavorite = true
+                                                  });
+                SetStatus(id, Status.Readed);
+                SetRate(id, Rating.Four);
+            }
+
+            for (int i = 10; i < 20; i++)
+            {
+                var id = AddOrUpdate(new Book
+                                                  {
+                                                      AuthorName = $"TestAuthor_{i}",
+                                                      BookName = $"TestBookName_{i}",
+                                                  });
+                SetStatus(id, Status.WantToRead);
+            }
         }
 
         public int AddOrUpdate(Book book)
@@ -46,7 +71,7 @@
 
                 return dbBook.Id;
             }
-            catch
+            catch (Exception ex)
             {
                 throw new DatabaseException("Произошла ошибка при сохранении данных. Пожалуйста, попробуйте позже");
             }
@@ -74,34 +99,62 @@
             }
         }
 
-        public IEnumerable<Book> GetLastUpdates()
+        public IEnumerable<Book> GetLastUpdates(int take = 15)
         {
-            var booksInDb = database.Table<DAL.SqLite.Models.Book>().OrderBy(x => x.UpdateDateTime).Take(15).ToList();
-            var books = new List<Book>();
-            foreach (var dbBook in booksInDb)
-            {
-                var book = new Book
-                               {
-                                   Id = dbBook.Id,
-                                   AuthorName = dbBook.AuthorName,
-                                   BookName = dbBook.Name,
-                                   IsFavorite = dbBook.IsFavorite
-                               };
-                var bookRating = GetBookRatingLink(dbBook.Id);
-                var bookStatus = GetBookStatusLink(dbBook.Id);
-
-                if (bookRating != null) book.SelectedRating = ((Rating)bookRating.RatingId).GetEnumDescription();
-                if (bookStatus != null) book.SelectedStatus = ((Status)bookStatus.StatusId).GetEnumDescription();
-
-                books.Add(book);
-            }
-
-            return books;
+            var booksInDb = database.Table<DAL.SqLite.Models.Book>().OrderBy(x => x.UpdateDateTime).Take(take).ToList();
+            return MapFromDatabaseBooks(booksInDb);
         }
 
-        public IEnumerable<Book> Search(string searchText, OrderBy order) => throw new System.NotImplementedException();
+        public IEnumerable<Book> Search(string searchText)
+        {
+            var searchByAuthorName = database.Table<DAL.SqLite.Models.Book>().Where(x => x.AuthorName.Contains(searchText)).ToList();
+            var searchByBookName = database.Table<DAL.SqLite.Models.Book>().Where(x => x.Name.Contains(searchText)).ToList();
 
-        public IEnumerable<Book> GetByStatus(Status status, OrderBy order) => throw new System.NotImplementedException();
+            searchByAuthorName.AddRange(searchByBookName);
+            return MapFromDatabaseBooks(searchByAuthorName);
+        }
+
+        public IEnumerable<Book> Filter(Status? status, Rating? rating, int? month, int? year, bool? isFavorite)
+        {
+            var books = new List<DAL.SqLite.Models.Book>();
+
+            if (status.HasValue)
+            {
+                var booksByStatusIds = database.Table<BookStatusLink>().Where(x => x.StatusId == (int)status).Select(x => x.BookId).Distinct();
+                books.AddRange(database.Table<DAL.SqLite.Models.Book>().Where(x => booksByStatusIds.Contains(x.Id)));
+            }
+
+            if (rating.HasValue)
+            {
+                var booksByRatingIds = database.Table<BookRatingLink>().Where(x => x.RatingId == (int)rating).Select(x => x.BookId).Distinct();
+                if (books.Any()) books = books.Where(x => booksByRatingIds.Contains(x.Id)).ToList();
+                else books.AddRange(database.Table<DAL.SqLite.Models.Book>().Where(x => booksByRatingIds.Contains(x.Id)));
+            }
+
+            if (month.HasValue)
+            {
+                if (books.Any()) books = books.Where(x => x.CreateDateTime.Month == month).ToList();
+                else books.AddRange(database.Table<DAL.SqLite.Models.Book>().Where(x => x.CreateDateTime.Month == month));
+            }
+
+            if (year.HasValue)
+            {
+                if (books.Any()) books = books.Where(x => x.CreateDateTime.Year == year).ToList();
+                else books.AddRange(database.Table<DAL.SqLite.Models.Book>().Where(x => x.CreateDateTime.Year == year));
+            }
+
+            if (isFavorite.HasValue)
+            {
+                if (books.Any()) books = books.Where(x => x.IsFavorite == isFavorite).ToList();
+                else books.AddRange(database.Table<DAL.SqLite.Models.Book>().Where(x => x.IsFavorite == isFavorite));
+            }
+
+            return MapFromDatabaseBooks(books);
+        }
+
+        public IEnumerable<int> GetEnteredYears() =>
+            database.Table<DAL.SqLite.Models.Book>().Select(x => x.CreateDateTime).Select(x => x.Year)
+                .Distinct();
 
         private void CreateTableIfNotExists()
         {
@@ -147,6 +200,30 @@
             database.DropTable<DAL.SqLite.Models.Status>();
             database.DropTable<DAL.SqLite.Models.Rating>();
             database.DropTable<DAL.SqLite.Models.Book>();
+        }
+
+        private IEnumerable<Book> MapFromDatabaseBooks(IEnumerable<DAL.SqLite.Models.Book> dbBooks)
+        {
+            var books = new List<Book>();
+            foreach (var dbBook in dbBooks)
+            {
+                var book = new Book
+                               {
+                                   Id = dbBook.Id,
+                                   AuthorName = dbBook.AuthorName,
+                                   BookName = dbBook.Name,
+                                   IsFavorite = dbBook.IsFavorite
+                               };
+                var bookRating = GetBookRatingLink(dbBook.Id);
+                var bookStatus = GetBookStatusLink(dbBook.Id);
+
+                if (bookRating != null) book.SelectedRating = ((Rating)bookRating.RatingId).GetEnumDescription();
+                if (bookStatus != null) book.SelectedStatus = ((Status)bookStatus.StatusId).GetEnumDescription();
+
+                books.Add(book);
+            }
+
+            return books;
         }
     }
 }

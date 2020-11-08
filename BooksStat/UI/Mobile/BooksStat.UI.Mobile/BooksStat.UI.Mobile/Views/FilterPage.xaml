@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BooksStat.UI.Mobile.Views.FilterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Image
+                HeightRequest="40"
+                HorizontalOptions="Start"
+                Source="bookworm_icon.png"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="40" />
+            <Label
+                FontSize="18"
+                HorizontalOptions="StartAndExpand"
+                Text="Фильтрация"
+                TextColor="#fbf7f0"
+                VerticalOptions="CenterAndExpand" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Clicked="Cancel_OnClicked" Text="Сбросить" />
+        <ToolbarItem Clicked="Filter_OnClicked" Text="Фильтровать" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid Padding="10" Background="#fbf7f0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Picker
+                x:Name="statusPicker"
+                Title="Статус книги"
+                FontSize="Medium"
+                TitleColor="DarkRed" />
+            <Picker
+                x:Name="ratingPicker"
+                Title="Рейтинг книги"
+                Grid.Row="1"
+                FontSize="Medium"
+                TitleColor="DarkRed" />
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Picker
+                    x:Name="monthPicker"
+                    Title="Месяц"
+                    FontSize="Medium"
+                    TitleColor="DarkRed" />
+                <Picker
+                    x:Name="yearPicker"
+                    Title="Год"
+                    Grid.Column="1"
+                    FontSize="Medium"
+                    TitleColor="DarkRed" />
+            </Grid>
+            <StackLayout Grid.Row="3" Orientation="Horizontal">
+                <CheckBox
+                    x:Name="favoriteCheckBox"
+                    VerticalOptions="Center"
+                    Color="DarkRed" />
+                <Label
+                    FontSize="Medium"
+                    Text="Любимая книга"
+                    TextColor="DarkRed"
+                    VerticalOptions="Center" />
+            </StackLayout>
+            <ListView
+                x:Name="booksListView"
+                Grid.Row="4"
+                Margin="0,0,0,0"
+                HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Frame
+                                    Margin="15,3,15,7"
+                                    CornerRadius="10"
+                                    HasShadow="True"
+                                    VerticalOptions="Start">
+                                    <StackLayout>
+                                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                                            <Image
+                                                HeightRequest="15"
+                                                HorizontalOptions="End"
+                                                IsVisible="{Binding IsFavorite}"
+                                                Source="heart.png"
+                                                VerticalOptions="Center"
+                                                WidthRequest="15" />
+                                            <Label
+                                                FontSize="18"
+                                                Text="{Binding AuthorBookName}"
+                                                TextColor="#7D7D7D" />
+                                        </StackLayout>
+
+                                        <Label Text="{Binding SelectedStatus}" TextColor="DarkRed" />
+                                        <Label
+                                            FontSize="12"
+                                            Text="15 июня 2020 г."
+                                            TextColor="#7D7D7D" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Image
+                                                HeightRequest="15"
+                                                Source="star.png"
+                                                WidthRequest="15" />
+                                            <Label Grid.Column="1" Text="{Binding SelectedRating}" />
+                                        </Grid>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

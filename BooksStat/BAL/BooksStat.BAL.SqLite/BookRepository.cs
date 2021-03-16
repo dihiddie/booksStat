@@ -23,8 +23,8 @@
 
             // DropTables();
             CreateTableIfNotExists();
-            CleanDatabase();
-            SetTestData();
+            // CleanDatabase();
+            //SetTestData();
         }
 
         public void SetTestData()
@@ -120,7 +120,7 @@
 
             if (status.HasValue)
             {
-                var booksByStatusIds = database.Table<BookStatusLink>().Where(x => x.StatusId == (int)status).Select(x => x.BookId).Distinct();
+                var booksByStatusIds = database.Table<BookStatusLink>().Where(x => x.StatusId == (int)status).Select(x => x.BookId).Distinct().ToList();
                 books.AddRange(database.Table<DAL.SqLite.Models.Book>().Where(x => booksByStatusIds.Contains(x.Id)));
             }
 
